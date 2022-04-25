@@ -1,0 +1,46 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.2"}
+        http-kit/http-kit {:mvn/version "2.5.3"}
+        clj-http/clj-http {:mvn/version "3.12.3"}
+        org.clojure/data.json {:mvn/version "2.4.0"}}
+ :aliases
+ {:macos {:jvm-opts ["-XstartOnFirstThread"]}
+           ;; these deps are not necessary during development
+           ;; because paravim already brings them in
+  :play-cljc {:extra-deps {play-cljc/play-cljc {:mvn/version "0.9.4"}
+                           org.lwjgl/lwjgl {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-glfw {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-opengl {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-stb {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl$natives-linux {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-glfw$natives-linux {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-opengl$natives-linux {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-stb$natives-linux {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl$natives-macos {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-glfw$natives-macos {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-opengl$natives-macos {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-stb$natives-macos {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl$natives-windows {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-glfw$natives-windows {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-opengl$natives-windows {:mvn/version "3.2.3"}
+                           org.lwjgl/lwjgl-stb$natives-windows {:mvn/version "3.2.3"}}}
+
+
+  :run-m {:main-opts ["-m" "jahenderson777.code-landscape"]}
+  :run-x {:ns-default jahenderson777.code-landscape
+          :exec-fn greet
+          :exec-args {:name "Clojure"}}
+  :test {:extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}}}
+  :runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
+   :main-opts ["-m" "cognitect.test-runner"
+               "-d" "test"]}
+  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.193"}}
+            :exec-fn hf.depstar/uberjar
+            :exec-args {:aot true
+                        :jar "code-landscape.jar"
+                        :main-class "jahenderson777.code-landscape"
+                        :sync-pom true}}}}
